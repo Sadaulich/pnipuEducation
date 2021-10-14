@@ -14,10 +14,10 @@ public class Num3 {
         int countStrSym = 0;
 
         try(BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line = "";
+            String line;
             do {
                 line = br.readLine();
-                if (line.contains(string)) {
+                if (line != null && line.contains(string)) {
                     countStr++;
                     builder.append(line);
                     countStrSym += containsSymbol(line, string);
