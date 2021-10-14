@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class num5 {
+public class num6 {
     static String path1 = "C:\\Users\\Facer\\Desktop\\a.txt";
     static String path2 = "C:\\Users\\Facer\\Desktop\\b.txt";
     static String path3 = "C:\\Users\\Facer\\Desktop\\c.txt";
