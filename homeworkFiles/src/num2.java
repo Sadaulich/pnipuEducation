@@ -12,6 +12,7 @@ public class num2 {
         try(BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line = "";
             do {
+                if (line == null) break;
                 line = br.readLine();
                 builder.append(line);
             } while (line != null);
