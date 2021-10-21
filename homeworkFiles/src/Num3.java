@@ -19,13 +19,14 @@ public class Num3 {
                 line = br.readLine();
                 if (line != null && line.contains(string)) {
                     countStr++;
-                    builder.append(line);
+                    builder.append(line + "\n");
                     countStrSym += containsSymbol(line, string);
                 }
             } while (line != null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        System.out.println(builder.toString());
         System.out.println("Кол-во строк содержащих данную последовательность: " + countStr);
         System.out.println("Кол-во строк содержащих все данные символы: " + countStr);
     }

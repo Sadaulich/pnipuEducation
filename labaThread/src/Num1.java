@@ -4,8 +4,8 @@ public class Num1 {
     public static void main(String[] args) {
         String str = "popo@1241;',askl14890f;:f915k";
 
-        String[] text = new String[100000000];
-        for (int i = 0; i < 100000000; i++) {
+        String[] text = new String[1000000000];
+        for (int i = 0; i < 999999999; i++) {
             text[i] = str;
         }
         long startTime = System.currentTimeMillis();
