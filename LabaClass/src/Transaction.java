@@ -1,35 +1,51 @@
 import java.util.Date;
 
 public class Transaction {
+    private String name;
     private Date beginDate;
     private Date endDate;
     private double amount;
-    private BankCustomer customer1;
-    private BankCustomer customer2;
-    private int state;
+    private ChangeBalance customer1;
+    private ChangeBalance customer2;
+    private int state;  // -1 отклонена -- 0 в работе -- 1 успешно
 
-    public Transaction(double amount, BankCustomer customer1, BankCustomer customer2) {
+    public Transaction(String name, double amount, ChangeBalance customerCard1, ChangeBalance customerCard2) {
+        this.name = name;
         this.amount = amount;
-        this.customer1 = customer1;
-        this.customer2 = customer2;
+        this.customer1 = customerCard1;
+        this.customer2 = customerCard2;
     }
 
     public boolean cancelTransaction() {
         state = -1;
-        customer1.getAcc().changeBalance(amount);
+        customer1.putMoney(amount);
         return true;
     }
 
     public void startTransaction() {
         beginDate = new Date();
         state = 0;
-        if (customer1.getAcc().changeBalance(-amount)) {
+        if (!customer1.getMoney(amount)) {
             state = -1;
             endDate = new Date();
         } else {
-            if (cancelTransaction()) { return; }
-            customer2.getAcc().changeBalance(amount);
+            if (cancelTransaction()) {
+                return;
+            }
+            customer2.putMoney(amount);
         }
+        state = 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction: " + name
+                + "\nBegin Date: " + beginDate
+                + "\nEndDate: " + endDate
+                + "\nAmount: " + amount
+                + "\nState: " + state
+                + "\nBank Customer 1: " + customer1.getBankCustomer()
+                + "\nBank Customer 2: " + customer1.getBankCustomer();
     }
 
     public Date getBeginDate() {
@@ -44,15 +60,11 @@ public class Transaction {
         return amount;
     }
 
-    public BankCustomer getCustomer1() {
+    public ChangeBalance getCustomer1() {
         return customer1;
     }
 
-    public BankCustomer getCustomer2() {
+    public ChangeBalance getCustomer2() {
         return customer2;
-    }
-
-    public int getState() {
-        return state;
     }
 }
