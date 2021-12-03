@@ -1,14 +1,26 @@
-public class ATMCard implements ChangeBalance {
-    private int PIN;
-    private final long ID;
-    private double balance;
-    private BankCustomer bankCustomer;
+import java.util.ArrayList;
+import java.util.List;
 
-    public ATMCard(int PIN, long ID, BankCustomer bankCustomer) {
+public class ATMCard {
+    private int PIN;
+    private static long ID = 0;
+    private final long this_ID;
+    private double balance;
+    private Account account;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
+
+    public ATMCard(int PIN, Account account) {
         this.PIN = PIN;
-        this.ID = ID;
-        this.bankCustomer = bankCustomer;
+        this.account = account;
         balance = 0;
+        this_ID = ++ID;
+    }
+
+    public ATMCard(Account account) {
+        this.PIN = 1234;
+        this.account = account;
+        balance = 0;
+        this_ID = ++ID;
     }
 
     public int getPIN() {
@@ -31,17 +43,36 @@ public class ATMCard implements ChangeBalance {
         return true;
     }
 
+    public long getThis_ID() {
+        return this_ID;
+    }
+
     public void putMoney(double amount) {
         balance += amount;
     }
 
-    @Override
-    public BankCustomer getBankCustomer() {
-        return bankCustomer;
+    public void addTransaction(Transaction transaction) {
+        account.addTransaction(transaction);
+        transactions.add(transaction);
     }
 
     public double getBalance() {
         return balance;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void showTransaction() {
+        transactions.forEach(transaction -> {
+            System.out.println();
+            System.out.println(transaction);
+        });
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
     @Override

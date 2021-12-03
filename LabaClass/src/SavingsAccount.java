@@ -4,8 +4,8 @@ public class SavingsAccount extends Account{
     private float interestRate;
     private Date lastChangeDate;
 
-    public SavingsAccount(String number, BankCustomer bankCustomer, float interestRate) {
-        super(number, bankCustomer);
+    public SavingsAccount(BankCustomer bankCustomer, float interestRate) {
+        super(bankCustomer);
         this.interestRate = interestRate;
     }
 

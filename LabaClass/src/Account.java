@@ -1,43 +1,70 @@
-public class Account implements ChangeBalance{
-    private String number;
-    private double balance = 0;
-    private BankCustomer bankCustomer;
+import java.util.ArrayList;
 
-    public Account(String number, BankCustomer bankCustomer) {
-        this.number = number;
+public abstract class Account {
+    private float interestRate;
+    private static long lastID = 0;
+    private final long ID;
+    private BankCustomer bankCustomer;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
+    private ArrayList<ATMCard> cards = new ArrayList<>();
+
+    public Account(BankCustomer bankCustomer) {
+        ID = ++lastID;
         this.bankCustomer = bankCustomer;
+        cards.add(new ATMCard(this));
+    }
+
+    public void addTransaction(Transaction transaction) {
+        bankCustomer.addTransaction(transaction);
+        transactions.add(transaction);
+    }
+
+    public void addNewCard(ATMCard card) {
+        cards.add(card);
     }
 
     public boolean getMoney(double amount) {
-        if (amount > balance) {
-            return false;
-        }
-        balance -= amount;
-        return true;
+        return cards.get(0).getMoney(amount);
     }
 
     public void putMoney(double amount) {
-        balance += amount;
+        cards.get(0).putMoney(amount);
     }
 
-    @Override
     public BankCustomer getBankCustomer() {
         return bankCustomer;
     }
 
-    public String getNumber() {
-        return number;
+    public long getID() {
+        return ID;
     }
 
+    public abstract void setInterestRate(float interestRate);
+
     public double getBalance() {
+        double balance = 0;
+        for (ATMCard card : cards) {
+            balance += card.getBalance();
+        }
         return balance;
     }
 
-    @Override
+    public float getInterestRate() {
+        return interestRate;
+    }
+
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public ArrayList<ATMCard> getCards() {
+        return cards;
+    }
+
     public String toString() {
         return "Account" +
-                "\nnumber='" + number + '\'' +
-                "\nbalance=" + balance +
-                "\nbankCustomer=" + bankCustomer;
+                "\nID='" + ID + '\'' +
+                "\nbalance=" + getBalance() +
+                "\nbankCustomer=" + bankCustomer.getName();
     }
 }

@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class ATM implements CardScanner {
+public class ATM  {
     private String location;
     private String branchName;
     private ATMCard currentCard;
@@ -13,7 +13,6 @@ public class ATM implements CardScanner {
         this.branchName = branchName;
     }
 
-    @Override
     public void readCard(ATMCard card) {
         currentCard = card;
         System.out.println("Enter PIN");
@@ -25,17 +24,10 @@ public class ATM implements CardScanner {
         ejectCard();
     }
 
-    @Override
     public boolean acceptCard() {
         return enterPIN == currentCard.getPIN();
     }
 
-    @Override
-    public void validatePIN() {
-
-    }
-
-    @Override
     public void ejectCard() {
     }
 
@@ -63,12 +55,18 @@ public class ATM implements CardScanner {
             switch (in.nextInt()) {
                 case 1:
                     showBalance();
+                    break;
                 case 2:
                     getMoney();
+                    break;
                 case 3:
                     putMoney();
+                    break;
                 case 4:
                     whileBool = false;
+                    break;
+                default:
+                    System.out.println("Введите верную цифру");
             }
         }
     }
@@ -92,7 +90,7 @@ public class ATM implements CardScanner {
     }
 
     private float calculateAmount() {
-        return new Random().nextFloat(100000);
+        return (float) ( Math.random() * 100000 );
     }
 
     private boolean cancelOperation() {

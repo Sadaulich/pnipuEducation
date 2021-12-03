@@ -1,8 +1,8 @@
 public class CurrentAccount extends Account{
     private float interestRate;
 
-    public CurrentAccount(String number, BankCustomer bankCustomer, float interestRate) {
-        super(number, bankCustomer);
+    public CurrentAccount(BankCustomer bankCustomer, float interestRate) {
+        super(bankCustomer);
         this.interestRate = interestRate;
     }
 
@@ -12,8 +12,7 @@ public class CurrentAccount extends Account{
 
     @Override
     public String toString() {
-
-        return "SavingsAccount:\n" + super.toString() +
+        return "CurrentAccount:\n" + super.toString() +
                 "\ninterestRate=" + interestRate;
     }
 }
