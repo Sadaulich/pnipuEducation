@@ -4,15 +4,14 @@ public class BankCustomer {
     private String name;
     private String address;
     private String email;
-    private ArrayList<SavingsAccount> savingsAccounts = new ArrayList<>();
-    private ArrayList<CurrentAccount> currentAccounts = new ArrayList<>();
+    private ArrayList<Account> accounts = new ArrayList<>();
     private ArrayList<Transaction> transactions = new ArrayList<>();
 
     public BankCustomer(String name, String address, String email) {
         this.name = name;
         this.address = address;
         this.email = email;
-        currentAccounts.add(new CurrentAccount(this, 0));
+        accounts.add(new CurrentAccount(this, 0));
     }
 
     public void addTransaction(Transaction transaction) {
@@ -20,24 +19,17 @@ public class BankCustomer {
     }
 
     public void addNewCurrentAccount(CurrentAccount currentAccount) {
-        currentAccounts.add(currentAccount);
+        accounts.add(currentAccount);
     }
 
     public void addNewSavingAccount(SavingsAccount savingsAccount) {
-        savingsAccounts.add(savingsAccount);
+        accounts.add(savingsAccount);
     }
 
-    public void showSavingsAccounts() {
-        savingsAccounts.forEach(savingsAccount -> {
+    public void showAccounts() {
+        accounts.forEach(account -> {
             System.out.println();
-            System.out.println(savingsAccount);
-        });
-    }
-
-    public void showCurrentAccount() {
-        currentAccounts.forEach(currentAccount -> {
-            System.out.println();
-            System.out.println(currentAccount);
+            System.out.println(account);
         });
     }
 
@@ -60,12 +52,8 @@ public class BankCustomer {
         return email;
     }
 
-    public ArrayList<SavingsAccount> getSavingsAccounts() {
-        return savingsAccounts;
-    }
-
-    public ArrayList<CurrentAccount> getCurrentAccounts() {
-        return currentAccounts;
+    public ArrayList<Account> getAccounts() {
+        return accounts;
     }
 
     public ArrayList<Transaction> getTransactions() {

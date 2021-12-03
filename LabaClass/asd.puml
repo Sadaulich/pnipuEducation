@@ -1,0 +1,89 @@
+@startuml
+
+
+abstract class Account {
+float interestRate
+long lastID
+long ID
+
+void addTransaction()
+void addNewCard()
+boolean getMoney()
+void putMoney()
+double getBalance()
+}
+
+class ATM {
+String location
+String branchName
+ATMCard currentCard
+int enterPIN
+
+void readCard ()
+boolean acceptCard ()
+void ejectCard ()
+void getMoney ()
+void work ()
+void putMoney ()
+}
+
+class ATMCard {
+int PIN
+static long ID
+final long this_ID
+double balance
+Account account
+
+int getPIN ()
+void setPIN ()
+boolean getMoney ()
+void putMoney()
+void addTransaction()
+double getBalance()
+Account getAccount()
+}
+class Transaction {
+String name
+double amount
+ATMCard customer
+int state
+
+Transaction()
+boolean cancelTransaction()
+void startTransaction()
+
+}
+class BankCustomer {
+String name
+String address
+String email
+
+void addTransaction()
+void addNewCurrentAccount()
+void addNewSavingAccount()
+}
+class CurrentAccount {
+float interestRate
+
+public void setInterestRate()
+}
+class SavingsAccount {
+float interestRate
+Date lastChangeDate
+
+void CalculateInterest()
+boolean getMoney()
+void putMoney()
+void setInterestRate()
+}
+
+ATM <|-- ATMCard
+ATMCard <|-- Transaction
+Account <|-  ATMCard
+Account <|- Transaction
+Account <|-- BankCustomer
+Account ---|> SavingsAccount
+Account ---|> CurrentAccount
+BankCustomer <|-- Transaction
+
+@enduml

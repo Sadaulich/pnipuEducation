@@ -7,6 +7,7 @@ public class ATM  {
     private ATMCard currentCard;
     private int enterPIN;
     Scanner in = new Scanner(System.in);
+    private ATMCard bankomatCard = new ATMCard(new CurrentAccount(new BankCustomer("bankomat", location, "email"), 0));
 
     public ATM(String location, String branchName) {
         this.location = location;
@@ -39,8 +40,11 @@ public class ATM  {
         currentCard.getBalance();
     }
 
-    private void getMoney() {
+    private void getMoney() {  // транзакция
         double amount = in.nextDouble();
+        if (currentCard.getAccount().getClass() == SavingsAccount.class) {
+            Transaction transactionToAcc = new Transaction(amount, currentCard, currentCard.getAccount().getCards().get(0));
+        }
         if (currentCard.getMoney(amount)) {
             System.out.println("Возьмите деньги");
         } else {

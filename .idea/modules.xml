@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LabaClass/LabaClass.iml" filepath="$PROJECT_DIR$/LabaClass/LabaClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/homeworkFiles/homeworkFiles.iml" filepath="$PROJECT_DIR$/homeworkFiles/homeworkFiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/labaThread/labaThread.iml" filepath="$PROJECT_DIR$/labaThread/labaThread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pnipuEducation.iml" filepath="$PROJECT_DIR$/pnipuEducation.iml" />
+    </modules>
+  </component>
+</project>
