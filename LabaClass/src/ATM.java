@@ -8,6 +8,7 @@ public class ATM  {
     private int enterPIN;
     Scanner in = new Scanner(System.in);
     private ATMCard bankomatCard = new ATMCard(new CurrentAccount(new BankCustomer("bankomat", location, "email"), 0));
+    private double cash = 100000000;
 
     public ATM(String location, String branchName) {
         this.location = location;
@@ -20,6 +21,7 @@ public class ATM  {
         enterPIN = Integer.parseInt(in.nextLine());
         if (!acceptCard()) {
             ejectCard();
+            return;
         }
         work();
         ejectCard();
@@ -42,13 +44,16 @@ public class ATM  {
 
     private void getMoney() {  // транзакция
         double amount = in.nextDouble();
-        if (currentCard.getAccount().getClass() == SavingsAccount.class) {
-            Transaction transactionToAcc = new Transaction(amount, currentCard, currentCard.getAccount().getCards().get(0));
+        if (cash < amount) {
+            System.out.println("Нет денег в банкомате");
+            return;
         }
-        if (currentCard.getMoney(amount)) {
+        Transaction transaction = new Transaction(amount, currentCard, bankomatCard);
+        transaction.startTransaction();
+        if (transaction.getState() == 1) {
             System.out.println("Возьмите деньги");
         } else {
-            System.out.println("Недостаточно средств");
+            System.out.println("Недоступно:(");
         }
     }
 
@@ -76,13 +81,22 @@ public class ATM  {
     }
 
     private void putMoney() {
+        bankomatCard.setBalance(100000000);
         System.out.println("Положите деньги");
         float amount = calculateAmount();
         if (cancelOperation()) {
             System.out.println("Возьмите деньги");
             return;
         }
-        currentCard.putMoney(amount);
+        cash += amount;
+        Transaction transaction = new Transaction(amount, bankomatCard, currentCard);
+        if (transaction.getState() == -1) {
+            cashBack();
+            return;
+        }
+    }
+
+    public void cashBack() {
     }
 
     public String getLocation() {

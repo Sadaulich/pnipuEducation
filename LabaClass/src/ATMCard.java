@@ -1,13 +1,16 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ATMCard {
+    public static final long WEEK = 24 * 60 * 60 * 1000 * 7;
     private int PIN;
     private static long ID = 0;
     private final long this_ID;
     private double balance;
     private Account account;
     private ArrayList<Transaction> transactions = new ArrayList<>();
+    private Date lastChangeDate = new Date(new Date().getTime() - WEEK);
 
     public ATMCard(int PIN, Account account) {
         this.PIN = PIN;
@@ -80,5 +83,17 @@ public class ATMCard {
         return  "ATMCard"
                 + "\nID: " + ID
                 + "\nbalance: " + balance;
+    }
+
+    public Date getLastChangeDate() {
+        return lastChangeDate;
+    }
+
+    public void setLastChangeDate(Date lastChangeDate) {
+        this.lastChangeDate = lastChangeDate;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

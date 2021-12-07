@@ -41,5 +41,14 @@ public class Main {
         transaction3.startTransaction();
         ATM atm = new ATM("petra 21", "mra");
         atm.readCard(danyaKr.getCards().get(1));
+
+
+        System.out.println();
+        System.out.println("Транзакции по карте");
+
+        for ( Transaction transaction : danyaKr.getCards().get(1).getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
+        };
     }
 }

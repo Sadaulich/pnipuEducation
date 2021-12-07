@@ -27,6 +27,13 @@ public class Transaction {
         customer1.addTransaction(this);
         customer2.addTransaction(this);
         state = 0;
+        if (customer1.getAccount().getClass() == SavingsAccount.class) {
+            if (beginDate.getTime() - customer1.getLastChangeDate().getTime() < ATMCard.WEEK) {
+                state = -1;
+                endDate = new Date();
+                return;
+            }
+        }
         if (!customer1.getMoney(amount)) {
             state = -1;
             endDate = new Date();
@@ -39,6 +46,8 @@ public class Transaction {
         }
         endDate = new Date();
         state = 1;
+        customer1.setLastChangeDate(endDate);
+        customer2.setLastChangeDate(endDate);
     }
 
     @Override
