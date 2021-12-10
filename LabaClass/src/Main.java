@@ -1,9 +1,12 @@
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
         BankCustomer danyaKrylov = new BankCustomer("Danya", "dedukina 24", "pokaBoka@junior.zoro");
-        BankCustomer korchaDanya = new BankCustomer("DanyaK", "dedukina 24", "MomHunter@deti.cum");
-        BankCustomer sergetPeretyga = new BankCustomer("Sergey","dedukina 24", "guccipromegakrut@adidas.nike");
+        BankCustomer korchaDanya = new BankCustomer("Sergey", "dedukina 24", "MomHunter@deti.cum");
+        BankCustomer sergetPeretyga = new BankCustomer("Sergey", "dedukina 24", "guccipromegakrut@adidas.nike");
 
         danyaKrylov.addNewCurrentAccount(new CurrentAccount(danyaKrylov, 0));
         danyaKrylov.addNewSavingAccount(new SavingsAccount(danyaKrylov, 10));
@@ -12,6 +15,7 @@ public class Main {
 
         danyaKrylov.getAccounts().get(1).putMoney(10000);
         korchaDanya.getAccounts().get(1).putMoney(100005);
+
 
         CurrentAccount danyaKr = (CurrentAccount) danyaKrylov.getAccounts().get(1);
         CurrentAccount danyaKor = (CurrentAccount) korchaDanya.getAccounts().get(1);
@@ -37,18 +41,65 @@ public class Main {
         System.out.println();
 
         danyaKr.addNewCard(new ATMCard(5555, danyaKr));
-        Transaction transaction3 = new Transaction( 30000, danyaKr.getCards().get(0), danyaKr.getCards().get(1));
+        Transaction transaction3 = new Transaction(30000, danyaKr.getCards().get(0), danyaKr.getCards().get(1));
         transaction3.startTransaction();
-        ATM atm = new ATM("petra 21", "mra");
-        atm.readCard(danyaKr.getCards().get(1));
+
+        ////////////////////////////////////////////
+
+        /////////////////////////////////////
+
+        CurrentAccount danyaKr2 = (CurrentAccount) danyaKrylov.getAccounts().get(3);
+        Transaction transactionNew = new Transaction(1000, danyaKor.getCards().get(0), danyaKr2.getCards().get(0));
+        transactionNew.startTransaction();
+
+        danyaKrylov.showTransaction();
+        System.out.println();
+        System.out.println("danyaKr");
+        for (Transaction transaction : danyaKr.getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
+        }
+        System.out.println();
+        System.out.println("danyaKr2");
+        for (Transaction transaction : danyaKr2.getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
+        }
+
+        System.out.println();
+        System.out.println("Карта с тридцаткой");
+        for (Transaction transaction : danyaKr.getCards().get(1).getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
+        }
+
+        ATM atm =new ATM("gagsg", "gagsags");
+        atm.setBankomatCard(danyaKr.getCards().get(1));
+        atm.getMoney(20000);
+
+        atm.setBankomatCard(danyaKr2.getCards().get(0));
+        atm.putMoney(20000);
 
 
         System.out.println();
-        System.out.println("Транзакции по карте");
-
-        for ( Transaction transaction : danyaKr.getCards().get(1).getTransactions()) {
+        System.out.println("Карта с тридцаткой");
+        for (Transaction transaction : danyaKr.getCards().get(1).getTransactions()) {
             System.out.println();
             System.out.println(transaction);
-        };
+        }
+
+        System.out.println();
+        System.out.println("danyaKr2");
+        for (Transaction transaction : danyaKr2.getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
+        }
+
+        System.out.println();
+        System.out.println("danyaKr");
+        for (Transaction transaction : danyaKr.getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
+        }
     }
 }

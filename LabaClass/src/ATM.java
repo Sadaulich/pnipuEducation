@@ -7,7 +7,7 @@ public class ATM  {
     private ATMCard currentCard;
     private int enterPIN;
     Scanner in = new Scanner(System.in);
-    private ATMCard bankomatCard = new ATMCard(new CurrentAccount(new BankCustomer("bankomat", location, "email"), 0));
+    private ATMCard bankomatCard = new ATMCard(new CurrentAccount(new BankCustomer("ATM", location, "email"), 0));
     private double cash = 100000000;
 
     public ATM(String location, String branchName) {
@@ -20,10 +20,11 @@ public class ATM  {
         System.out.println("Enter PIN");
         enterPIN = Integer.parseInt(in.nextLine());
         if (!acceptCard()) {
+            System.out.println("Error! Wrong pin-code");
             ejectCard();
             return;
         }
-        work();
+        //work();
         ejectCard();
     }
 
@@ -35,29 +36,30 @@ public class ATM  {
     }
 
     private void show() {
-        System.out.println("function: \n1.Show balance\n2.Get money\n3.Put money\n4.Escape\nEnter num");
+        System.out.println("function: \n1.Show balance\n2.Get money\n3.Put money\n4.Escape\n5.Transaction\nEnter num");
     }
 
     private void showBalance() {
-        currentCard.getBalance();
+        System.out.println("Balance: " + currentCard.getBalance());
     }
 
-    private void getMoney() {  // транзакция
-        double amount = in.nextDouble();
+    public void getMoney(double amount) {  // транзакция
         if (cash < amount) {
             System.out.println("Нет денег в банкомате");
             return;
         }
         Transaction transaction = new Transaction(amount, currentCard, bankomatCard);
         transaction.startTransaction();
+
         if (transaction.getState() == 1) {
+
             System.out.println("Возьмите деньги");
         } else {
             System.out.println("Недоступно:(");
         }
     }
 
-    private void work(){
+    /*private void work(){
         boolean whileBool = true;
         while (whileBool) {
             show();
@@ -74,25 +76,38 @@ public class ATM  {
                 case 4:
                     whileBool = false;
                     break;
+                case 5:
+                    showTransaction();
+                    break;
                 default:
+                    System.out.println();
                     System.out.println("Введите верную цифру");
+                    System.out.println();
             }
         }
-    }
+    }*/
 
-    private void putMoney() {
+    public void putMoney(double amount) {
         bankomatCard.setBalance(100000000);
         System.out.println("Положите деньги");
-        float amount = calculateAmount();
         if (cancelOperation()) {
             System.out.println("Возьмите деньги");
             return;
         }
-        cash += amount;
+        cash -= amount;
+        System.out.println(amount);
         Transaction transaction = new Transaction(amount, bankomatCard, currentCard);
+        transaction.startTransaction();
         if (transaction.getState() == -1) {
             cashBack();
             return;
+        }
+    }
+
+    public void showTransaction() {
+        for (Transaction transaction : currentCard.getTransactions()) {
+            System.out.println();
+            System.out.println(transaction);
         }
     }
 
@@ -113,5 +128,9 @@ public class ATM  {
 
     private boolean cancelOperation() {
         return in.nextLine().equalsIgnoreCase("cancel");
+    }
+
+    public void setBankomatCard(ATMCard bankomatCard) {
+        this.currentCard = bankomatCard;
     }
 }

@@ -26,9 +26,7 @@ public class ATMCard {
         this_ID = ++ID;
     }
 
-    public int getPIN() {
-        return PIN;
-    }
+    public int getPIN() { return PIN; }
 
     public void setPIN(int PIN) {
         this.PIN = PIN;
@@ -55,7 +53,6 @@ public class ATMCard {
     }
 
     public void addTransaction(Transaction transaction) {
-        account.addTransaction(transaction);
         transactions.add(transaction);
     }
 
