@@ -1,4 +1,5 @@
-import java.util.Random;
+package Bank;
+
 import java.util.Scanner;
 
 public class ATM  {

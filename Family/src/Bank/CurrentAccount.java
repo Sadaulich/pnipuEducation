@@ -1,4 +1,6 @@
-public class CurrentAccount extends Account{
+package Bank;
+
+public class CurrentAccount extends Account {
     private float interestRate;
 
     public CurrentAccount(BankCustomer bankCustomer, float interestRate) {

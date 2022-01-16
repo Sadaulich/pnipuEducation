@@ -32,7 +32,7 @@ public class ATM {
 			System.out.println("�������� ������");
 		}
 		else {
-			System.out.println("������������ �������");
+			System.out.println("������������ ������� ");
 		}
 	}
 
