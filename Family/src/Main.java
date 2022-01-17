@@ -47,9 +47,9 @@ public class Main {
         // Оплата налом
         payment = sanya.payByCash(TCompany);
         if (payment) {
-            System.out.println("Оплата налом успешно прошла");
+            System.out.println("Оплата наличными успешно прошла");
         } else {
-            System.out.println("Оплата налом не прошла");
+            System.out.println("Оплата наличными не прошла");
         }
 
         // Оплата картой банка
