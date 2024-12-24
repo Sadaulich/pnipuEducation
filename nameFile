@@ -1,0 +1,21 @@
+for _, v in game:GetService("Players").Rexchoo7729.PlayerGui.Lobby.PostOffice.Menus.ReceivePackages.ScrollingFrame:GetChildren(2) do
+local args = {
+    [1] = {
+        [1] = {
+            [1] = "\226\129\130Q"
+        },
+        [2] = {
+            [1] = "\226\129\130\137",
+            [2] = "\162\26\t\\\213+E\150\170\20\13\248JyUY",
+            [3] = {
+                [1] = tostring(v)
+            }
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("NetworkingContainer"):WaitForChild("DataRemote"):FireServer(unpack(args))
+
+
+wait(8)
+end
